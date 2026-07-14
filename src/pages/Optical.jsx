@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useCart } from '../context/CartContext'
 import frame1 from '../../images/frames/f1.jfif'
 import frame2 from '../../images/frames/f2.jfif'
 import frame3 from '../../images/frames/f3.jfif'
@@ -26,8 +27,7 @@ import frame23 from '../../images/frames/f23.jfif'
 import frame24 from '../../images/frames/f24.jfif'
 import frame25 from '../../images/frames/f25.jfif'
 
-export default function Optical() {
-  const products = [
+export const products = [
     { name: "Classic Blue Frame", desc: "Premium lightweight frame with reinforced hinges.", price: "Rs. 1000", image: frame1 },
     { name: "Classic Black Frame", desc: "Premium lightweight round frame.", price: "Rs. 750", image: frame2 },
     { name: "Classic Brown Frame", desc: "Premium metallic brown frame in 3 piece.", price: "Rs. 1500", image: frame3 },
@@ -55,6 +55,8 @@ export default function Optical() {
     { name: "Classic Blue Frame", desc: "Premium lightweight frame for babies.", price: "Rs. 2000", image: frame25 },
   ];
 
+export default function Optical() {
+  const { addToCart } = useCart();
   return (
     <div className="bg-black min-h-screen pt-32 px-8 pb-20">
       <div className="max-w-7xl mx-auto">
@@ -76,7 +78,7 @@ export default function Optical() {
               <h3 className="text-white font-bold">{product.name}</h3>
               <p className="text-neutral-400 text-sm mt-1">{product.desc}</p>
               <p className="text-teal-500 font-mono mt-2">{product.price}</p>
-              <button className="w-full mt-4 bg-white text-black py-2 rounded-lg font-bold text-sm hover:bg-teal-500 hover:text-white transition-colors">
+              <button onClick={() => addToCart({ ...product, id: `${product.name}-${index}` })} className="w-full mt-4 bg-white text-black py-2 rounded-lg font-bold text-sm hover:bg-teal-500 hover:text-white transition-colors">
                 ADD TO CART
               </button>
             </motion.div>
@@ -86,3 +88,4 @@ export default function Optical() {
     </div>
   )
 }
+

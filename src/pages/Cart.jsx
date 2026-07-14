@@ -3,7 +3,7 @@ import { CreditCard, ShieldCheck, Truck, Landmark, CheckCircle, Trash2, Shopping
 import { useCart } from '../context/CartContext'
 
 export default function Cart() {
-  const { cart, removeFromCart, clearCart, updateQuantity } = useCart()
+  const { cartItems: cart, removeFromCart, clearCart, updateQuantity } = useCart()
   
   // Payment Selection State ('cod' | 'card' | 'jazzcash' | 'easypaisa')
   const [paymentMethod, setPaymentMethod] = useState('card')
@@ -13,8 +13,15 @@ export default function Cart() {
   const [mobileWalletNumber, setMobileWalletNumber] = useState('')
   const [orderProcessed, setOrderProcessed] = useState(false)
 
+  // Parse string prices like "Rs. 1000" to numbers
+  const parsePrice = (price) => {
+    if (typeof price === 'number') return price;
+    if (!price) return 0;
+    return Number(price.replace(/[^0-9]/g, ""));
+  };
+
   // Calculate Order Totals
-  const subtotal = cart?.reduce((acc, item) => acc + (item.price * (item.quantity || 1)), 0) || 0
+  const subtotal = cart?.reduce((acc, item) => acc + (parsePrice(item.price) * (item.quantity || 1)), 0) || 0
   const shipping = subtotal > 0 ? 500 : 0
   const total = subtotal + shipping
 
@@ -29,7 +36,7 @@ export default function Cart() {
 
   if (!cart || cart.length === 0) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center bg-[#fcfcfc] px-4 font-sans text-center">
+      <div className="min-h-[60vh] pt-28 flex flex-col items-center justify-center bg-[#fcfcfc] px-4 font-sans text-center">
         <ShoppingBag className="w-12 h-12 text-neutral-300 mb-4 animate-pulse" />
         <h2 className="text-xl font-black tracking-tight uppercase">Your Vault Is Empty</h2>
         <p className="text-xs font-mono text-neutral-500 mt-1">Add items from the store to activate the gateway pipeline.</p>
@@ -38,7 +45,7 @@ export default function Cart() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-[#fcfcfc] text-neutral-900 py-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className="min-h-screen w-full bg-[#fcfcfc] text-neutral-900 pt-28 pb-12 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         
         {/* ========================================================= */}
@@ -63,7 +70,7 @@ export default function Cart() {
                     )}
                     <div>
                       <h4 className="text-xs font-bold font-mono tracking-tight text-neutral-800 line-clamp-1">{item.name}</h4>
-                      <p className="text-[11px] font-mono text-neutral-500 mt-0.5">Rs. {item.price.toLocaleString()}</p>
+                      <p className="text-[11px] font-mono text-neutral-500 mt-0.5">{item.price}</p>
                     </div>
                   </div>
                   

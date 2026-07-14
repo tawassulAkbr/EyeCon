@@ -51,8 +51,15 @@ export function CartProvider({ children }) {
   // Clear entire cart structure
   const clearCart = () => setCartItems([]);
 
+  // Parse string prices to numbers
+  const parsePrice = (price) => {
+    if (typeof price === 'number') return price;
+    if (!price) return 0;
+    return Number(price.replace(/[^0-9]/g, ""));
+  };
+
   // Financial calculations
-  const cartSubtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const cartSubtotal = cartItems.reduce((acc, item) => acc + parsePrice(item.price) * item.quantity, 0);
   const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (

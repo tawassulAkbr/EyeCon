@@ -1,5 +1,5 @@
 import React from 'react'
-//import { Mail, Phone, MapPin, Instagram, Twitter, FacebookIcon, Linkedin, ArrowUpRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react'
 
 export default function Footer() {
@@ -27,10 +27,10 @@ export default function Footer() {
           <div className="space-y-3">
             <h4 className="text-xs font-mono uppercase tracking-widest text-white font-bold">Navigation</h4>
             <ul className="space-y-2 text-xs font-mono">
-              <li><a href="#catalog" className="hover:text-teal-400 transition-colors inline-flex items-center gap-0.5 group">Frames Catalog <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" /></a></li>
-              <li><a href="#lens-tech" className="hover:text-teal-400 transition-colors inline-flex items-center gap-0.5 group">Lens Blueprint <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" /></a></li>
-              <li><a href="#virtual-tryon" className="hover:text-teal-400 transition-colors inline-flex items-center gap-0.5 group">AI Virtual Calibration <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" /></a></li>
-              <li><a href="#about" className="hover:text-teal-400 transition-colors inline-flex items-center gap-0.5 group">Our Ecosystem <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" /></a></li>
+              <li><Link to="/types/optical" className="hover:text-teal-400 transition-colors inline-flex items-center gap-0.5 group">Frames Catalog <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" /></Link></li>
+              <li><Link to="/types/lens" className="hover:text-teal-400 transition-colors inline-flex items-center gap-0.5 group">Lens Blueprint <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" /></Link></li>
+              <li><Link to="/types/sunglasses" className="hover:text-teal-400 transition-colors inline-flex items-center gap-0.5 group">Sunglasses <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" /></Link></li>
+              <li><Link to="/" className="hover:text-teal-400 transition-colors inline-flex items-center gap-0.5 group">Our Ecosystem <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" /></Link></li>
             </ul>
           </div>
 

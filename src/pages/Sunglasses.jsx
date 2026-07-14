@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useCart } from '../context/CartContext'
 
 // Importing images
 import DB1 from '../../images/sunglasses/D&B 1.png'
@@ -24,7 +25,7 @@ import RB3 from '../../images/sunglasses/RB3.png'
 import RB4 from '../../images/sunglasses/RB4.png'
 import RB5 from '../../images/sunglasses/RB5.png'
 
-const brandGroups = [
+export const brandGroups = [
   {
     name: "Ray-Ban",
     items: [
@@ -69,6 +70,7 @@ const brandGroups = [
 ];
 
 export default function Sunglasses() {
+  const { addToCart } = useCart();
   return (
     <div className="bg-black min-h-screen pt-32 px-8 pb-20 text-white">
       <div className="max-w-7xl mx-auto">
@@ -91,7 +93,7 @@ export default function Sunglasses() {
                   <h3 className="font-bold text-lg">{item.name}</h3>
                   <p className="text-neutral-400 text-xs mt-2 leading-relaxed" dangerouslySetInnerHTML={{ __html: item.desc.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                   <p className="text-amber-500 font-mono mt-3">{item.price}</p>
-                  <button className="w-full mt-4 bg-white text-black py-2 rounded-lg font-bold text-sm hover:bg-amber-500 hover:text-white transition-colors">ADD TO CART</button>
+                  <button onClick={() => addToCart({ ...item, id: `${brand.name}-${item.name}-${index}` })} className="w-full mt-4 bg-white text-black py-2 rounded-lg font-bold text-sm hover:bg-amber-500 hover:text-white transition-colors">ADD TO CART</button>
                 </motion.div>
               ))}
             </div>

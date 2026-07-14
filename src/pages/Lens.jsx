@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useCart } from '../context/CartContext'
 
 // Corrected imports matching your file system
 import l1 from '../../images/lens/L1-AmberAmbition.png'
@@ -17,8 +18,7 @@ import l12 from '../../images/lens/L12-RedBrown.png'
 import l13 from '../../images/lens/L13-Sapphire.png'
 import l14 from '../../images/lens/L14-Turquoise.png'
 
-export default function Lens() {
-  const lenses = [
+export const lenses = [
     { name: "Amber Ambition", desc: "Warm, golden tones for a bright look.", price: "Rs. 1500", image: l1 },
     { name: "Aquatic Allure", desc: "Refreshing deep ocean blue.", price: "Rs. 1500", image: l2 },
     { name: "Blue n Breeze", desc: "Light, breezy tones for daily wear.", price: "Rs. 1500", image: l3 },
@@ -35,6 +35,8 @@ export default function Lens() {
     { name: "Turquoise", desc: "Vibrant and exotic tropical blue.", price: "Rs. 1900", image: l14 },
   ];
 
+export default function Lens() {
+  const { addToCart } = useCart();
   return (
     <div className="bg-black min-h-screen pt-32 px-8 pb-20">
       <div className="max-w-7xl mx-auto">
@@ -57,7 +59,7 @@ export default function Lens() {
               <h3 className="text-white font-bold text-md">{lens.name}</h3>
               <p className="text-neutral-400 text-sm mt-1">{lens.desc}</p>
               <p className="text-emerald-500 font-mono mt-2">{lens.price}</p>
-              <button className="w-full mt-3 bg-white text-black py-1.5 rounded-lg font-bold text-sm hover:bg-emerald-500 hover:text-white transition-colors">
+              <button onClick={() => addToCart({ ...lens, id: `${lens.name}-${index}` })} className="w-full mt-3 bg-white text-black py-1.5 rounded-lg font-bold text-sm hover:bg-emerald-500 hover:text-white transition-colors">
                 ADD TO CART
               </button>
             </motion.div>
